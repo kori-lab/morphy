@@ -20,7 +20,7 @@ module.exports = class Morphy extends Client {
 
   async start() {
     const bigText = readFileSync('morphy-logo.txt', 'utf8');
-    console.log(`\n${colors.green(bigText)}\n`);
+    console.log(`\n${colors.blue(bigText)}\n`);
 
     await this.login();
     this.logTag('MORPHY', 'Bot inicializado com sucesso!');
