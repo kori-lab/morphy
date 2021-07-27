@@ -24,6 +24,8 @@ module.exports = class Morphy extends Client {
 
     await this.login();
     this.logTag('MORPHY', 'Bot inicializado com sucesso!');
+
+    this.user?.setStatus('dnd');
   }
 
   /**
