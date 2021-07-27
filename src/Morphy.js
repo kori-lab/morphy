@@ -6,12 +6,12 @@ const colors = require('colors');
 module.exports = class Morphy extends Client {
   /**
    * @typedef MorphyClientOptions
-   * @prop {string} token
-   * @prop {string} prefix
+   * @prop {string} token The client token
+   * @prop {string} prefix The client default prefix
    */
 
   /**
-   * @param {MorphyClientOptions & ClientOptions} options
+   * @param {MorphyClientOptions & ClientOptions} options The client options
    */
   constructor(options) {
     super(options);
