@@ -1,4 +1,7 @@
 module.exports = {
-  // LIBS ----------
+  //////////// LIBS ////////////
   Logs: require('./libs/Logs'),
+
+  //////////// UTILS //////////////
+  FileUtils: require('./utils/FileUtils'),
 };
