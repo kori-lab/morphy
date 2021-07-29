@@ -11,7 +11,7 @@ module.exports = class Loader {
    * The loader structure to extends every loaders that will be created
    * @param {Morphy} client The client to execute the loader
    * @param {LoaderOptions} options The loader options
-   * @extends
+   * @abstract
    */
   constructor(client, options) {
     this.client = client;
