@@ -23,5 +23,7 @@ module.exports = class extends OptionType {
     if (this.option.allowYourSelf === false && user.id === author.id) {
       throw new Error('O usuário não pode ser você mesmo.');
     }
+
+    return user;
   }
 };
