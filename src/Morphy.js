@@ -1,7 +1,9 @@
-const { Logs } = require('./');
 const { Client } = require('discord.js');
 const { readFileSync } = require('fs');
 const colors = require('colors');
+
+const { Logs, FileUtils } = require('./');
+const Loader = require('./structures/Loader');
 
 module.exports = class Morphy extends Client {
   /**
@@ -22,8 +24,52 @@ module.exports = class Morphy extends Client {
     const bigText = readFileSync('morphy-logo.txt', 'utf8');
     console.log(`\n${colors.green(bigText)}\n`);
 
+    /**
+     * @type {Record<string, Loader>}
+     */
+    const loaders = await FileUtils.requireDir({
+      dirName: 'src/loaders',
+      recursive: true,
+    });
+
+    /**
+     * @type {[Loader[], Loader[]]}
+     */
+    const [preLoaders, normalLoaders] = Object.values(loaders)
+      .map(Loader => new Loader(this))
+      .reduce(
+        ([pl, nl], n) => {
+          if (n.preLoad) {
+            return [[...pl, n], nl];
+          }
+          return [pl, [...pl, n]];
+        },
+        [[], []]
+      );
+
+    for (const loader of preLoaders) {
+      await this.initializeLoader(loader);
+    }
+
     await this.login();
-    this.logTag('MORPHY', 'Bot inicializado com sucesso!');
+
+    for (const loader of normalLoaders) {
+      await this.initializeLoader(loader);
+    }
+  }
+
+  /**
+   * @param {Loader} loader
+   */
+  async initializeLoader(loader) {
+    try {
+      await loader.start();
+    } catch (err) {
+      console.error(err);
+      if (loader.important) {
+        process.exit();
+      }
+    }
   }
 
   /**

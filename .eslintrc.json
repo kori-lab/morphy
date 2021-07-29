@@ -12,6 +12,6 @@
     "no-console": "off",
     "no-empty": "off",
     "no-unsafe-optional-chaining": "off",
-    "no-unused-vars": "warn"
+    "no-unused-vars": "off"
   }
 }
