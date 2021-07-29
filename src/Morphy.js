@@ -24,8 +24,6 @@ module.exports = class Morphy extends Client {
 
     await this.login();
     this.logTag('MORPHY', 'Bot inicializado com sucesso!');
-
-    this.user?.setStatus('dnd');
   }
 
   /**
@@ -49,6 +47,6 @@ module.exports = class Morphy extends Client {
     }
 
     this.token = options.token;
-    this.prefix = options.prefix ?? 'm.';
+    this.prefix = options.prefix || 'm.';
   }
 };
