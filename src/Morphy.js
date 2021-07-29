@@ -3,7 +3,8 @@ const { readFileSync } = require('fs');
 const colors = require('colors');
 
 const { Logs, FileUtils } = require('./');
-const Loader = require('./structures/Loader');
+const Loader = require('./structures/Event');
+const Command = require('./structures/Command/Command');
 
 module.exports = class Morphy extends Client {
   /**
@@ -18,6 +19,11 @@ module.exports = class Morphy extends Client {
   constructor(options) {
     super(options);
     this.validate(options);
+
+    /**
+     * @type {Command[]}
+     */
+    this.commands = [];
   }
 
   async start() {

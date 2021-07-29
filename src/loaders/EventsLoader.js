@@ -1,10 +1,6 @@
 const { Loader, FileUtils, Event: _Event, Utils } = require('..');
-const Morphy = require('../Morphy');
 
 module.exports = class EventsLoader extends Loader {
-  /**
-   * @param {Morphy} client
-   */
   constructor(client) {
     super(client, {
       preLoad: true,
