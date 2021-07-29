@@ -5,6 +5,7 @@ module.exports = {
   //////////// STRUCTURES //////////////
   Loader: require('./structures/Loader'),
   Event: require('./structures/Event'),
+  Command: require('./structures/Command/Command'),
 
   //////////// UTILS //////////////
   Utils: require('./utils/Utils'),

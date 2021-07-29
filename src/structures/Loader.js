@@ -21,7 +21,7 @@ module.exports = class Loader {
 
   /**
    * The loader start function
-   * @extends
+   * @abstract
    */
   async start() {}
 };
