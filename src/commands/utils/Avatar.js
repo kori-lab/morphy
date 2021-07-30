@@ -12,6 +12,8 @@ module.exports = class extends Command {
     super(client, {
       name: 'avatar',
       aliases: ['a', 'foto'],
+      category: 'Utilidade',
+      description: 'Obtenha o avatar de um usuário.',
       options: [
         {
           type: 'USER',
@@ -58,7 +60,7 @@ module.exports = class extends Command {
     await msg
       .awaitMessageComponent({
         filter,
-        time: 4000,
+        time: 120000,
       })
       .catch(() => null);
 
