@@ -27,7 +27,7 @@ module.exports = class extends Command {
       const ms = msg.createdAt - message.createdAt;
       await msg
         .edit({
-          embeds: [embed.setDescription(` Pong! \`${ms}ms\``)],
+          embeds: [embed.setDescription(`Pong! \`${ms}ms\``)],
         })
         .catch(() => null);
     }
