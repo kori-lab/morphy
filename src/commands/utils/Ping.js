@@ -1,12 +1,10 @@
 const { Message } = require('discord.js');
-const { Command } = require('../..');
+const { Command, PaginatedEmbed } = require('../..');
 
 module.exports = class extends Command {
   constructor(client) {
     super(client, {
       name: 'ping',
-      category: 'Developer',
-      description: 'Descrubra mais sobre mim. 👿💝',
       aliases: ['ms', 'latencia'],
       category: 'Utilidade',
       description: 'Obtenha a latência do bot.',

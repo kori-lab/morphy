@@ -5,7 +5,7 @@ const {
   MessageActionRow,
   MessageButton,
 } = require('discord.js');
-const { Command } = require('../..');
+const { Command, MorphyEmbed } = require('../..');
 
 module.exports = class extends Command {
   constructor(client) {
@@ -33,28 +33,37 @@ module.exports = class extends Command {
 
     const targetAvatar = target.displayAvatarURL({ format: 'png', dynamic: true });
 
+    const deleteBtn = new MessageButton()
+      .setLabel('Excluir')
+      .setCustomId('delete')
+      .setStyle('DANGER');
+
+    const linkBtn = new MessageButton()
+      .setLabel('Baixar')
+      .setURL(targetAvatar)
+      .setStyle('LINK');
+
+    const buttons = new MessageActionRow().addComponents(deleteBtn, linkBtn);
+
+    const embedPhotographic = new MorphyEmbed({
+      user: target,
+    })
+      .setImage(targetAvatar)
+      .setColor('#313131')
+      .setFooter(
+        this.client.user.username,
+        this.client.user.displayAvatarURL({ format: 'png', dynamic: true })
+      )
+      .setTimestamp();
+
     const msg = await message
       .reply({
-        embeds: [
-          new MessageEmbed()
-            .setDescription(`\\✨ Avatar de **${target.tag}**`)
-            .setImage(targetAvatar)
-            .setColor('#313131')
-            .setFooter(
-              author.username,
-              author.displayAvatarURL({ format: 'png', dynamic: true })
-            )
-            .setTimestamp(),
-        ],
-        components: [
-          new MessageActionRow().addComponents(
-            new MessageButton().setEmoji('🗑').setCustomId('delete').setStyle('DANGER'),
-
-            new MessageButton().setEmoji('🖼').setURL(targetAvatar).setStyle('LINK')
-          ),
-        ],
+        embeds: [embedPhotographic],
+        components: [buttons],
       })
       .catch(() => null);
+
+    if (!msg) return;
 
     const filter = interaction => interaction.user.id === author.id;
     await msg
