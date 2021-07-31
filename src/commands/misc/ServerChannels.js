@@ -24,7 +24,7 @@ module.exports = class extends Command {
 
     const template = new MorphyEmbed({
       user: author,
-    }).setTitle('Canais do servidor');
+    }).setTitle('Canais do servidor:');
 
     const paginatedEmbed = new PaginatedEmbed({
       author,
