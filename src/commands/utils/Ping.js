@@ -6,6 +6,8 @@ module.exports = class extends Command {
     super(client, {
       name: 'ping',
       aliases: ['ms', 'latencia'],
+      category: 'Utilidade',
+      description: 'Obtenha a latência do bot.',
     });
   }
 
