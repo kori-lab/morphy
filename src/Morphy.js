@@ -5,6 +5,7 @@ const colors = require('colors');
 const { Logs, FileUtils } = require('./');
 const Loader = require('./structures/Event');
 const Command = require('./structures/Command/Command');
+const DBWrapper = require('./database/DBWrapper');
 
 module.exports = class Morphy extends Client {
   /**
@@ -24,6 +25,11 @@ module.exports = class Morphy extends Client {
      * @type {Command[]}
      */
     this.commands = [];
+
+    /**
+     * @type {DBWrapper}
+     */
+    this.database = null;
   }
 
   async start() {
