@@ -16,4 +16,11 @@ module.exports = class Logs {
   static logTag(tag, ...args) {
     console.log(colors.bgMagenta.white.bold(tag), ...args);
   }
+
+  /**
+   * @param {string[]} args
+   */
+  static logError(...args) {
+    console.log(colors.bgRed.bold('[ERROR]'), ...args);
+  }
 };
