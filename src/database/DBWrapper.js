@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Mongoose, MongooseOptions } = mongoose;
 
 const { GuildRepository } = require('./repositories/GuildRepository');
+const { UserRepository } = require('./repositories/UserRepository');
 
 module.exports = class DBWrapper {
   /**
@@ -17,6 +18,11 @@ module.exports = class DBWrapper {
      * @type {?GuildRepository}
      */
     this.guilds = null;
+
+    /**
+     * @type {?UserRepository}
+     */
+    this.users = null;
   }
 
   /**
@@ -25,6 +31,7 @@ module.exports = class DBWrapper {
   async initialize() {
     return this.mongoose.connect(this.uri, this.options).then(async mongoose => {
       this.guilds = new GuildRepository(mongoose);
+      this.users = new UserRepository(mongoose);
     });
   }
 };
