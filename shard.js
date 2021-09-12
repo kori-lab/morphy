@@ -8,11 +8,19 @@ const manager = new ShardingManager('./index.js', {
   totalShards: process.env.SHARD_AMOUNT || 'auto',
 });
 
+<<<<<<< HEAD
+=======
+manager.spawn();
+
+>>>>>>> 40a24bdc9b96b4e95b5873ec791473385c69ba14
 manager.on('shardCreate', shard => {
   Logs.shardLog(`O shard com o id ${shard.id} esta sendo inicializado...`);
   shard.on('ready', () => {
     Logs.shardLog(`O shard com o id ${shard.id} foi inicializado com sucesso!`);
   });
 });
+<<<<<<< HEAD
 
 manager.spawn();
+=======
+>>>>>>> 40a24bdc9b96b4e95b5873ec791473385c69ba14
