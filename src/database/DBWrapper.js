@@ -32,6 +32,7 @@ module.exports = class DBWrapper {
     return this.mongoose.connect(this.uri, this.options).then(async mongoose => {
       this.guilds = new GuildRepository(mongoose);
       this.users = new UserRepository(mongoose);
+      return mongoose;
     });
   }
 };
