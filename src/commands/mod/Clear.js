@@ -21,11 +21,13 @@ module.exports = class extends Command {
       : 10;
 
     if (amount < 2 || amount > 100) {
-      return message.reply(
-        new MessageEmbed()
-          .setColor('YELLOW')
-          .setDescription(`Use \`${this.fullname} [2 a 1000]\` para deletar as mensagens do chat atual rapidamente.`)
-      ).catch(() => {});
+      return message.reply({
+        embeds: [
+          new MorphyEmbed()
+            .setColor('YELLOW')
+            .setDescription(`Use \`${this.fullname} [2 a 1000]\` para deletar as mensagens do chat atual rapidamente.`),
+        ]
+      }).catch(() => {});
     }
   
     try {
