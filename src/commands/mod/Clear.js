@@ -16,13 +16,12 @@ module.exports = class extends Command {
    * @param {string[]} args
    */
   async run(message, args) {
-    const { author } = message;
     if (!args[0] || (parseInt(args[0]) && !args[0] > 1000)) {
       const warnMessage = await message.reply({
         embeds: [
           new MessageEmbed()
             .setDescription(
-              `${author.username} você deve me dizer a quantia de mensgens que irei deletar.`
+              `${message.author.username} você deve me dizer a quantia de mensgens que irei deletar.`
             )
             .setColor('RED'),
         ],
