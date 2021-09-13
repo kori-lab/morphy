@@ -1,5 +1,5 @@
-const { Message, MessageEmbed } = require('discord.js');
-const { Command } = require('../..');
+const { Message } = require('discord.js');
+const { Command, MorphyEmbed } = require('../..');
 
 module.exports = class extends Command {
   constructor(client) {
@@ -16,40 +16,39 @@ module.exports = class extends Command {
    * @param {string[]} args
    */
   async run(message, args) {
-    if (!args[0] || (parseInt(args[0]) && !args[0] > 1000)) {
-      const warnMessage = await message.reply({
+    const amount = args.length 
+      ? (Number.isInteger(Number(args[0])) ? Number(args[0]) : 0)
+      : 10;
+
+    if (amount < 2 || amount > 100) {
+      return message.reply(
+        new MessageEmbed()
+          .setColor('YELLOW')
+          .setDescription(`Use \`${this.fullname} [2 a 1000]\` para deletar as mensagens do chat atual rapidamente.`)
+      ).catch(() => {});
+    }
+  
+    try {
+      const deleted = await message.channel.bulkDelete(amount)
+        .then(msgs => msgs.size);
+
+      const msg = await message.reply({
         embeds: [
-          new MessageEmbed()
-            .setDescription(
-              `${message.author.username} você deve me dizer a quantia de mensgens que irei deletar.`
-            )
-            .setColor('RED'),
+          new MorphyEmbed()
+            .setColor('GREEN')
+            .setDescription(`**${deleted}** mensagens deletadas!`),
         ],
       });
-      return setTimeout(() => warnMessage.delete().catch(() => {}), 20000);
-    }
-    const count =
-      args[0] > 99 ? (args[0].slice(0, args[0].length - 2) + '00') / 100 : args[0];
 
-    if (count > 99) {
-      let i = 0;
-      do {
-        message.channel.messages
-          .fetch({
-            limit: 100,
-          })
-          .then(messages => messages.forEach(m => m.delete().catch(() => null)));
-        i++;
-      } while (count > i);
+      setTimeout(() => msg.delete().catch(() => {}), 5000);
+    } catch(err) {
+      message.reply({
+        embeds: [
+          new MorphyEmbed()
+            .setColor('RED')
+            .setDescription('Ocorreu um erro ao deletar as mensagens do canal atual.'),
+        ]
+      }).catch(() => {});
     }
-    await message.channel.bulkDelete(args[0].slice(-2));
-
-    message.reply({
-      embeds: [
-        new MessageEmbed()
-          .setDescription(`Eu apaguei **${args[0]}** em ${message.channel}`)
-          .setColor('GREEN'),
-      ],
-    });
   }
 };
